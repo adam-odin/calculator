@@ -1,0 +1,75 @@
+:root {
+  /* Grey tones */
+  --calg: #F0F0F0;  /* Light Grey */
+  --camg: #B0B0B0;  /* Medium Light Grey */
+  --cadg: #707070;  /* Medium Dark Grey */
+  --caxg: #303030;  /* Extra Dark Grey */
+
+    /* White and Cream */
+    --cawh: #FFFFFF;  /* White */
+    --cacr: #FFFDD0;  /* Cream */
+  
+  /* Accent colors */
+  --caor: #FFA500;  /* Orange */
+  --caye: #FFD700;  /* Yellow */
+  
+  /* Blue-Green-Violet gradient */
+  --cadb: #1E90FF;  /* Dodger Blue */
+  --casb: #00BFFF;  /* Deep Sky Blue */
+  --casg: #00FA9A;  /* Medium Spring Green */
+  --cadg: #32CD32;  /* Lime Green */
+  --cabv: #8A2BE2;  /* Blue Violet */
+  --camp: #9370DB;  /* Medium Purple */
+
+  font-family: Roboto;
+}
+
+* {
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+
+body {
+    flex: 1;
+    background-color: var(--cacr);
+    width: 100vw;
+    height: 100vw;
+    display: flex;
+}
+
+.container {
+    
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.screen {
+    flex: 1;
+    display: flex;
+    background-color: var(--calg);
+    border: 5px solid var(--caxg);
+}
+
+#Display {
+    flex-shrink: 0;
+    background-color: var(--calg);
+    font-weight: heavy;
+}
+
+.inputs {
+    flex: 4;
+    display: flex;
+    flex-flow: row wrap;
+    height: same-as-width;
+}
+
+.button {
+    flex: 1;
+    display: flex;
+    width: 25%;
+    height 25%;
+}
