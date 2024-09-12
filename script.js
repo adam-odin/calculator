@@ -42,24 +42,22 @@ const factorial = function(a) {
   return total;
 };
 
-let operatorTrigger = 0; // could squeeze operatorTrigger into "truthy" operatorNumber??
+let operatorTrigger = false; // could squeeze operatorTrigger into "truthy" operatorNumber??
 
-let canAddNumbers = 1;  // check to see whether pressing numbers adds to display or starts again
+let canAddNumbers = true;  // check to see whether pressing numbers adds to display or starts again
                         // 1 means yes numbers will add on, 0 means no and start numberOne again + change canAddNumbers to 1
 
 let answer = 0; //"Ready for an add-venture? Press any key to begin";
-
 let numberOne = 0;
 let numberTwo = 0;
-
 let operatorNumber = 0;
 
 const clearly = function() {
     numberOne = 0;
     numberTwo = 0;
     answer = 0;
-    operatorTrigger = 0;
-    canAddNumbers=1;
+    operatorTrigger = false;
+    canAddNumbers=true;
     display.textContent=answer;
 }
 
@@ -68,55 +66,69 @@ const next = function(num) {
     if (canAddNumbers) {    // check can add on numbers or start from scratch? 
                             // example: after equals numberOne changed but can't be added whereas when number there can add numbers
         if (operatorTrigger) {
-            numberTwo === 0 ? numberTwo = num : numberTwo = numberTwo+""+num;
+            numberTwo = numberTwo === 0 ? num : Number(numberTwo.toString()+num);
             answer = numberTwo;
         } else {
             console.log(numberOne);
-            (numberOne === 0) ? numberOne = num : numberOne = numberOne+""+num;
+            numberOne = numberOne === 0 ? num : Number(numberOne.toString()+num);
             answer = numberOne;
         }
-        display.textContent=answer;
-    } else numberOne = num;
-    answer = numberOne;
+    } else {
+    canAddNumbers=true;
+    numberOne = num;
+    }
+    answer = operatorTrigger ? numberTwo : numberOne;
     display.textContent=answer;
 }
 
 const dotty = function() {
-    // check can add numbers ?
-    if (canAddNumbers) {
-        if (operatorTrigger) numberTwo === 0 ? numberTwo = "0." : numberTwo = toString(numberTwo) + ".";
-        else numberOne === 0 ? numberOne = "0." : numberOne = toString(numberOne)+".";
-    } else numberOne = "0.";
-    // check can add dot (not if already a dot there) NEED TO ADD THIS IN!!
+    let currentNumber = operatorTrigger ? numberTwo : numberOne;
+    if (!currentNumber.toString().includes('.')) {
+        currentNumber = currentNumber.toString() + '.';
+        if (operatorTrigger) {
+            numberTwo = currentNumber;
+        } else {
+            numberOne = currentNumber;
+        }
+        display.textContent = currentNumber;
+    }
 }
 
 const execute = function () {  
     // execute function according to current operatorNumber 
+    numberOne = parseFloat(numberOne);
+    numberTwo = parseFloat(numberTwo);
     switch(operatorNumber) {
-        case 0 : answer = numberOne;
-        case 1 : answer = sum(numberOne, numberTwo);
-        case 2 : answer = subtract(numberOne, numberTwo);
-        case 3 : answer = multiply(numberOne, numberTwo);
-        case 4 : answer = divide(numberOne, numberTwo);
-        case 5 : answer = power(numberOne, numberTwo);
-        case 6 : answer = factorial(numberOne, numberTwo);
+        case 0 : answer = numberOne; break;
+        case 1 : answer = sum(numberOne, numberTwo); break;
+        case 2 : answer = subtract(numberOne, numberTwo); break;
+        case 3 : answer = multiply(numberOne, numberTwo); break;
+        case 4 : answer = divide(numberOne, numberTwo); break;
+        case 5 : answer = power(numberOne, numberTwo); break;
+        case 6 : answer = factorial(numberOne, numberTwo); break;
     }
     console.log("after switch: "+{operatorNumber}+{numberOne}+{numberTwo});
     numberOne = answer;
     numberTwo = 0;
-    canAddNumbers = 0;
+    canAddNumbers = false;
     display.textContent=answer;
 }
 
 const equally = function() {
+    if (operatorTrigger) {
     execute();
-    operatorTrigger = 0;
+    operatorTrigger = false;
+    }
 }
 
 const operator = function (num) {
     console.log("operator: "+ num);
-    operatorTrigger ?  execute() : operatorTrigger = 1;
+    if (operatorTrigger) {
+        execute();
+    }
+    operatorTrigger = true;
     operatorNumber = num;
+    canAddNumbers = true;
 }
 
 const body = document.querySelector("body")
@@ -203,7 +215,7 @@ minus.textContent = "-";
 minus.onclick = () => operator(2);
 const times = document.getElementById("button-13");
 times.textContent = "x";
-plus.onclick = () => operator(3);
+times.onclick = () => operator(3);
 const divider = document.getElementById("button-03");
 divider.textContent = "/";
 divider.onclick = () => operator(4);
@@ -221,26 +233,23 @@ fact.onclick = () => operator(6);
 
 const gags = document.getElementById("button-00");
 gags.textContent = "g";
+gags.onclick = () => display.textContent=gagReel[Math.floor(Math.random()*14)];
 // const puns = document.getElementById("button-01");
 // puns.textContent = "p";
 
 
 
-
-// if / 0 that's Apparently, they’re instruments of maths instruction.
-
-// "Got stopped by customs with a calculator. Apparently, they’re instruments of maths instruction."
-// "Opened the post, and there’s a calculator, an abacus, and a letter. Something just doesn’t add up."
-// "What do you get when you cross a dog and a calculator? A friend you can count on!"
-// "How do you get a calculator mad? By pushing its buttons!"
-// "I was going to buy a pocket calculator, but then I realized I could just count my pockets."
-// "Why did ⅕ go to the masseuse? Because it was two-tenths!"
-// "Why do plants hate math? Because it gives them square roots."
-// "What did the triangle say to the circle? 'You’re pointless!'"
-// "Why did the calculator break up with the pencil? It couldn’t handle the pressure!"
-// "What did the calculator say to the math book? 'You’ve got problems!'"
-// "Why did the calculator get kicked out of class? It couldn’t stop calculating!"
-// "What’s a calculator’s favorite dance? The algorithm!"
-// "Why did the student bring a ladder to math class? Because they were going to high school!"
-// "Why did the calculator go to therapy? It had too many unresolved equations!"
-// "I told my calculator a joke, but it didn't get it. It just couldn't compute!"
+const gagReel = ["Got stopped by customs with a calculator. Apparently, they’re instruments of maths instruction.",
+    "Opened the post, and there’s a calculator, an abacus, and a letter. Something just doesn’t add up.",
+    "What do you get when you cross a dog and a calculator? A friend you can count on!",
+    "How do you get a calculator mad? By pushing its buttons!",
+    "Why did ⅕ go to the masseuse? Because it was two-tenths!",
+    "Why do plants hate math? Because it gives them square roots.",
+    "What did the triangle say to the circle? 'You’re pointless!'",
+    "Why did the calculator break up with the pencil? It couldn’t handle the pressure!",
+    "What did the calculator say to the math book? 'You’ve got problems!'",
+    "Why did the calculator get kicked out of class? It couldn’t stop calculating!",
+    "What’s a calculator’s favorite dance? The algorithm!",
+    "Why did the student bring a ladder to math class? Because they were going to high school!",
+    "Why did the calculator go to therapy? It had too many unresolved equations!",
+    "I told my calculator a joke, but it didn't get it. It just couldn't compute!"]
