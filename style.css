@@ -163,3 +163,46 @@ body {
 #button-00 {
     background-color: var(--casg);
 }
+
+#button-23 {
+    position: relative;
+    /* padding: 20px 40px;
+    font-size: 20px;
+    color: white;
+    background-color: #007BFF;*/
+    /* border: none;
+    border-radius: 5px; */
+    cursor: pointer;
+    overflow: hidden; /* Ensure pseudo-elements don't overflow */
+}
+
+#button-23::before,
+#button-23::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 5px; /* Thickness of the crack */
+    background: transparent; /* Initially transparent */
+}
+
+#button-23::before {
+    top: 50%; /* Position in the middle */
+    left: 0;
+    background: var(--cacr); /* Color of the crack */
+    transform: rotate(10deg); /* Angle of the crack */
+    transition: background 0.3s; /* Smooth transition */
+}
+
+#button-23::after {
+    top: 50%; /* Position in the middle */
+    left: 0;
+    background: var(--cacr); /* Color of the crack */
+    transform: rotate(-10deg); /* Angle of the crack */
+    transition: background 0.3s; /* Smooth transition */
+}
+
+/* Optional: Change the crack color on hover */
+#button-23:hover::before,
+#button-23:hover::after {
+    background: var(--caor); /* Change color on hover */
+}
