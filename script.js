@@ -6,17 +6,6 @@ const subtract = function(a,b) {
 	return a-b;
 };
 
-// const sum = function(array) {
-// 	return array.reduce((total,item) => total + item, 0);
-// };
-// const multiply = function(array) {
-//   return array.reduce((total,item) => total * item);
-// };
-// const divide = function(array) {
-//     return array.reduce((total,item) => total / item);
-// };  
-
-
 const multiply = function(a, b) {
     return a * b;
   };
@@ -42,12 +31,11 @@ const factorial = function(a) {
   return total;
 };
 
-let operatorTrigger = false; // could squeeze operatorTrigger into "truthy" operatorNumber??
+let operatorTrigger = false; 
 
-let canAddNumbers = true;  // check to see whether pressing numbers adds to display or starts again
-                        // 1 means yes numbers will add on, 0 means no and start numberOne again + change canAddNumbers to 1
-
-let answer = 0; //"Ready for an add-venture? Press any key to begin";
+let canAddNumbers = true;  
+                        
+let answer = 0; 
 let numberOne = 0;
 let numberTwo = 0;
 let operatorNumber = 0;
@@ -63,8 +51,7 @@ const clearly = function() {
 
 const next = function(num) {
     console.log("next: "+num);
-    if (canAddNumbers) {    // check can add on numbers or start from scratch? 
-                            // example: after equals numberOne changed but can't be added whereas when number there can add numbers
+    if (canAddNumbers) {                                
         if (operatorTrigger) {
             numberTwo = numberTwo === 0 ? num : Number(numberTwo.toString()+num);
             answer = numberTwo;
@@ -133,8 +120,6 @@ const operator = function (num) {
 
 const body = document.querySelector("body")
 const container = document.querySelector(".container")
-// const frame = document.createElement("div");
-// container.appendChild(frame);
 
 const screen = document.createElement("div")
 screen.classList.add("screen");
@@ -143,10 +128,6 @@ display.textContent=answer;
 display.id="display";
 screen.appendChild(display);
 container.appendChild(screen);
-
-// const buttons = document.createElement("div");
-// buttons.classList.add("buttons");
-// frame.appendChild(buttons);
 
 const numRows = 5;
 const numberButtons = 20;
@@ -234,10 +215,6 @@ fact.onclick = () => operator(6);
 const gags = document.getElementById("button-00");
 gags.textContent = "g";
 gags.onclick = () => display.textContent=gagReel[Math.floor(Math.random()*14)];
-// const puns = document.getElementById("button-01");
-// puns.textContent = "p";
-
-
 
 const gagReel = ["Got stopped by customs with a calculator. Apparently, they’re instruments of maths instruction.",
     "Opened the post, and there’s a calculator, an abacus, and a letter. Something just doesn’t add up.",
