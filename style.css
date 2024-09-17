@@ -80,6 +80,7 @@ body {
     border-width: 10px;
     border-style: solid;
     border-image: linear-gradient(to right, var(--cadb), var(--casg)) 1;
+    /* border-radius: 15px 15px 0 0; */
     margin: 0 0 1px 0;
     min-height: 12vh;
     /* min-height: 100px; */
